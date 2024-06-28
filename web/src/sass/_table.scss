@@ -1,0 +1,39 @@
+.task-table {
+  @apply w-full text-black border-border border rounded-lg overflow-hidden;
+
+  table {
+    @apply w-full;
+
+    thead {
+      tr {
+        @apply bg-primary border-b border-border;
+
+        th {
+          @apply text-center p-5 border-border;
+
+          &:not(:last-child) {
+            @apply border-r;
+          }
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        @apply bg-white border-border;
+
+        td {
+          @apply text-center p-5 border-border;
+
+          &:not(:last-child) {
+            @apply border-r;
+          }
+        }
+
+        &:not(:last-child) {
+          @apply border-b;
+        }
+      }
+    }
+  }
+}
