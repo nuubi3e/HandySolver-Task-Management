@@ -1,0 +1,26 @@
+.task-form {
+  @apply flex flex-col gap-3 mt-5;
+
+  div {
+    @apply flex flex-col gap-2;
+
+    label {
+      @apply font-semibold w-max;
+    }
+
+    input,
+    select {
+      @apply border rounded-md px-4 py-2 text-base outline-offset-1 outline-primary transition-all bg-transparent;
+    }
+  }
+
+  .permission_checkbox {
+    &:checked + label span.un_checked_box {
+      @apply hidden;
+    }
+
+    &:checked + label span.checked_box {
+      @apply block;
+    }
+  }
+}

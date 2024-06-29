@@ -1,15 +1,20 @@
 .task-table {
-  @apply w-full text-black border-border border rounded-lg overflow-hidden;
+  @apply w-full text-black border-border border rounded-lg overflow-x-auto;
 
   table {
     @apply w-full;
+
+    input,
+    select {
+      @apply px-1 py-1 bg-slate-100 rounded-lg outline-primary;
+    }
 
     thead {
       tr {
         @apply bg-primary border-b border-border;
 
         th {
-          @apply text-center p-5 border-border;
+          @apply text-center py-5 border-border;
 
           &:not(:last-child) {
             @apply border-r;
@@ -23,7 +28,7 @@
         @apply bg-white border-border;
 
         td {
-          @apply text-center p-5 border-border;
+          @apply text-center py-5 px-3 border-border;
 
           &:not(:last-child) {
             @apply border-r;
@@ -31,7 +36,65 @@
         }
 
         &:not(:last-child) {
-          @apply border-b;
+          td {
+            @apply border-b;
+          }
+        }
+
+        .label {
+          @apply px-4 py-1 rounded-full font-semibold text-nowrap capitalize;
+
+          &--1 {
+            @apply bg-red-100 text-red-500;
+          }
+
+          &--2 {
+            @apply bg-cyan-100 text-cyan-500;
+          }
+
+          &--3 {
+            @apply bg-orange-100 text-orange-500;
+          }
+
+          &--4 {
+            @apply bg-indigo-100 text-indigo-500;
+          }
+
+          &--progress {
+            @apply bg-yellow-100 text-yellow-500;
+          }
+
+          &--progress {
+            @apply bg-purple-100 text-purple-500;
+          }
+
+          &--success {
+            @apply bg-green-100 text-green-500;
+          }
+
+          &--un-initialized {
+            @apply bg-red-100 text-red-500;
+          }
+
+          &--true {
+            @apply bg-green-100 text-green-500;
+          }
+
+          &--false {
+            @apply bg-red-100 text-red-500;
+          }
+
+          &--low {
+            @apply bg-green-100 text-green-500;
+          }
+
+          &--medium {
+            @apply bg-orange-100 text-orange-500;
+          }
+
+          &--high {
+            @apply bg-red-100 text-red-500;
+          }
         }
       }
     }
