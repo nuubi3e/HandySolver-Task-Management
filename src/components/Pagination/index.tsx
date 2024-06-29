@@ -27,7 +27,7 @@ export const Pagination = () => {
         )}
 
         {/* show when tasks is greater than taskPerPage */}
-        {visibleTasks > taskPerPage && (
+        {totalTasks > taskPerPage && (
           <p className='rounded-md self-stretch flex items-center px-3 py-2 bg-primary'>
             {currentPage}
           </p>

@@ -46,8 +46,12 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
     [currentPage, taskPerPage]
   );
 
-  const changeTaskPerPage = (n: number) => setTaskPerPage(n);
+  const changeTaskPerPage = (n: number) => {
+    setCurrentPage(1);
+    setTaskPerPage(n);
+  };
 
+  // function to change page
   const changePage = (type: 'forward' | 'backward') => {
     setCurrentPage((page) => {
       switch (type) {
@@ -63,11 +67,13 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
     });
   };
 
+  // Function to add filters values
   const addFilters = (type: Filters, value: string) =>
     setFilters((lst) => {
       return { ...lst, [type]: value };
     });
 
+  // Function to change dragging ability of task cell
   const toogleIsDragging = (id?: string) => {
     setFilteredTasks((lst) => {
       const lastTask = [...lst];
@@ -91,6 +97,7 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
     addPagniation(tasks);
   }, [tasks, taskPerPage, currentPage, addPagniation]);
 
+  // Below effect will be applied whenever filters object changes
   useEffect(() => {
     let filteredTasks: Task[] = tasks;
 
@@ -136,6 +143,7 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
     addPagniation(filteredTasks);
   }, [filters, addPagniation, tasks]);
 
+  // function to clear all filters
   const clearFilters = () => {
     setFilters({
       title: '',

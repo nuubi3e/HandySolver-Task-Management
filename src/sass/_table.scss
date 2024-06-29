@@ -11,7 +11,7 @@
 
     thead {
       tr {
-        @apply bg-primary border-b border-border;
+        @apply bg-primary border-b border-border uppercase;
 
         th {
           @apply text-center py-5 border-border;

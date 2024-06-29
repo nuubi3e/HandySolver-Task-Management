@@ -2,24 +2,33 @@ import { useContext } from 'react';
 import { members, priorities, statues } from '../../lib/utility';
 import { FilterContext } from '../../context/filters';
 import { MdOutlineFilterAlt } from 'react-icons/md';
+import { PiDotsSixVerticalBold } from 'react-icons/pi';
 
 export const TaskFilters = () => {
-  const { addFilters, filters, clearFilters } = useContext(FilterContext);
-
-  console.log(filters);
+  const { addFilters, filters, clearFilters, toogleIsDragging } =
+    useContext(FilterContext);
 
   return (
     <tr>
       <th className='text-center'>
+        <button
+          type='button'
+          className='text-xl'
+          onClick={() => toogleIsDragging()}>
+          <PiDotsSixVerticalBold />
+        </button>
+      </th>
+      <th>
         <MdOutlineFilterAlt className='text-2xl mx-auto' />
       </th>
-      <th></th>
       <th>
         <input
           type='search'
           name='title'
           id='title'
           value={filters.title}
+          placeholder='Search Title'
+          className='text-center'
           onChange={(e) => addFilters('title', e.target.value)}
         />
       </th>
@@ -29,13 +38,15 @@ export const TaskFilters = () => {
           name='taskId'
           id='taskId'
           value={filters.taskId}
+          placeholder='Search Task Id'
+          className='text-center'
           onChange={(e) => addFilters('taskId', e.target.value)}
         />
       </th>
       <th>
         <select
           id='status'
-          className='capitalize'
+          className='capitalize text-center'
           value={filters.status}
           onChange={(e) => addFilters('status', e.target.value)}>
           <option value=''>All</option>
@@ -49,7 +60,7 @@ export const TaskFilters = () => {
       <th>
         <select
           id='assignedTo'
-          className='capitalize'
+          className='capitalize text-center'
           value={filters.assignedTo}
           onChange={(e) => addFilters('assignedTo', e.target.value)}>
           <option value=''>All</option>
@@ -63,6 +74,7 @@ export const TaskFilters = () => {
       <th>
         <input
           type='date'
+          className='text-center'
           name='dueDateFilter'
           id='dueDateFilter'
           value={filters.dueDate}
@@ -72,7 +84,7 @@ export const TaskFilters = () => {
       <th>
         <select
           id='isAssigned'
-          className='capitalize'
+          className='capitalize text-center'
           value={filters.isAssigned}
           onChange={(e) => addFilters('isAssigned', e.target.value)}>
           <option value=''>All</option>
@@ -83,6 +95,7 @@ export const TaskFilters = () => {
       <th>
         <input
           type='time'
+          className='text-center'
           name='estimatedHrs'
           id='estimatedHrs'
           value={filters.estimatedHours}
@@ -92,7 +105,7 @@ export const TaskFilters = () => {
       <th>
         <select
           id='priority'
-          className='capitalize'
+          className='capitalize text-center'
           value={filters.priority}
           onChange={(e) => addFilters('priority', e.target.value)}>
           <option value=''>All</option>
@@ -106,6 +119,7 @@ export const TaskFilters = () => {
       <th>
         <input
           type='date'
+          className='text-center'
           name='createdDateFilter'
           id='createdDateFilter'
           value={filters.createdOn}
@@ -113,12 +127,12 @@ export const TaskFilters = () => {
         />
       </th>
       <th>
-        <input
+        <button
           type='button'
           onClick={clearFilters}
-          className='text-sm px-3 uppercase'
-          value={'clear'}
-        />
+          className='text-sm px-3 uppercase bg-teal-500 text-teal-50 py-1 rounded-md transition-all hover:bg-teal-600'>
+          clear
+        </button>
       </th>
     </tr>
   );

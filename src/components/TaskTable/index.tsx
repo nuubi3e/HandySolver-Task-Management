@@ -7,6 +7,8 @@ import { DeleteButton, EditButton } from '../Buttons';
 import { TaskFilters } from '../TaskFilters';
 import { PiDotsSixVerticalBold } from 'react-icons/pi';
 import { PiDotsSixVerticalFill } from 'react-icons/pi';
+import { LuClipboard } from 'react-icons/lu';
+import toast from 'react-hot-toast';
 
 export const TaskTable = () => {
   const { filteredTasks, setFilteredTasks, toogleIsDragging } =
@@ -76,7 +78,23 @@ export const TaskTable = () => {
                 </td>
                 <td>{task.serialNo}</td>
                 <td>{task.title}</td>
-                <td>{task.id}</td>
+                <td>
+                  <div className='flex items-center gap-2 justify-center'>
+                    {task.id}
+                    <button
+                      type='button'
+                      onClick={() => {
+                        navigator.clipboard.writeText(task.id);
+
+                        toast.success(
+                          `Task Id: ${task.id} Copied Successfully`
+                        );
+                      }}
+                      className='outline-none'>
+                      <LuClipboard />
+                    </button>
+                  </div>
+                </td>
                 <td
                   style={{
                     textWrap: 'nowrap',

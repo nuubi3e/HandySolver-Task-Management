@@ -234,7 +234,7 @@ export const TaskForm: FC<Props> = ({ onClose, mode, id, ...task }) => {
           <button
             type='submit'
             disabled={submitting}
-            className='mb-5 mt-4 self-center px-8 transition-all py-1 text-black rounded-2xl bg-teal-100 border-2 border-teal-500 font-semibold hover:bg-teal-500 hover:text-teal-50 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:border-gray-300 disabled:text-gray-500'>
+            className='mb-5 mt-4 col-span-full justify-self-center self-center px-8 transition-all py-1 text-black rounded-2xl bg-teal-100 border-2 border-teal-500 font-semibold hover:bg-teal-500 hover:text-teal-50 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:border-gray-300 disabled:text-gray-500'>
             {submitting ? (
               <LuLoader className='animate-spin text-2xl' />
             ) : (
