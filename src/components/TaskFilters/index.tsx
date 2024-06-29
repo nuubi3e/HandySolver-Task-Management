@@ -1,22 +1,26 @@
 import { useContext } from 'react';
 import { members, priorities, statues } from '../../lib/utility';
 import { FilterContext } from '../../context/filters';
+import { MdOutlineFilterAlt } from 'react-icons/md';
 
 export const TaskFilters = () => {
-  const { applyFilters, filters } = useContext(FilterContext);
+  const { addFilters, filters, clearFilters } = useContext(FilterContext);
 
   console.log(filters);
 
   return (
     <tr>
-      <th>Filters</th>
+      <th className='text-center'>
+        <MdOutlineFilterAlt className='text-2xl mx-auto' />
+      </th>
       <th></th>
       <th>
         <input
           type='search'
           name='title'
           id='title'
-          onChange={(e) => applyFilters('title', e.target.value)}
+          value={filters.title}
+          onChange={(e) => addFilters('title', e.target.value)}
         />
       </th>
       <th>
@@ -24,14 +28,16 @@ export const TaskFilters = () => {
           type='search'
           name='taskId'
           id='taskId'
-          onChange={(e) => applyFilters('taskId', e.target.value)}
+          value={filters.taskId}
+          onChange={(e) => addFilters('taskId', e.target.value)}
         />
       </th>
       <th>
         <select
           id='status'
           className='capitalize'
-          onChange={(e) => applyFilters('status', e.target.value)}>
+          value={filters.status}
+          onChange={(e) => addFilters('status', e.target.value)}>
           <option value=''>All</option>
           {statues.map((status) => (
             <option key={status} value={status}>
@@ -44,7 +50,8 @@ export const TaskFilters = () => {
         <select
           id='assignedTo'
           className='capitalize'
-          onChange={(e) => applyFilters('assignedTo', e.target.value)}>
+          value={filters.assignedTo}
+          onChange={(e) => addFilters('assignedTo', e.target.value)}>
           <option value=''>All</option>
           {members.map((member) => (
             <option key={member} value={member}>
@@ -58,23 +65,36 @@ export const TaskFilters = () => {
           type='date'
           name='dueDateFilter'
           id='dueDateFilter'
-          onChange={(e) => applyFilters('dueDate', e.target.value)}
+          value={filters.dueDate}
+          onChange={(e) => addFilters('dueDate', e.target.value)}
         />
       </th>
-      <th></th>
+      <th>
+        <select
+          id='isAssigned'
+          className='capitalize'
+          value={filters.assignedTo}
+          onChange={(e) => addFilters('isAssigned', e.target.value)}>
+          <option value=''>All</option>
+          <option value={'true'}>Yes</option>
+          <option value={'false'}>No</option>
+        </select>
+      </th>
       <th>
         <input
           type='time'
           name='estimatedHrs'
           id='estimatedHrs'
-          onChange={(e) => applyFilters('estimatedHours', e.target.value)}
+          value={filters.estimatedHours}
+          onChange={(e) => addFilters('estimatedHours', e.target.value)}
         />
       </th>
       <th>
         <select
           id='priority'
           className='capitalize'
-          onChange={(e) => applyFilters('priority', e.target.value)}>
+          value={filters.priority}
+          onChange={(e) => addFilters('priority', e.target.value)}>
           <option value=''>All</option>
           {priorities.map((prio) => (
             <option key={prio} value={prio}>
@@ -88,10 +108,18 @@ export const TaskFilters = () => {
           type='date'
           name='createdDateFilter'
           id='createdDateFilter'
-          onChange={(e) => applyFilters('createdOn', e.target.value)}
+          value={filters.createdOn}
+          onChange={(e) => addFilters('createdOn', e.target.value)}
         />
       </th>
-      <th></th>
+      <th>
+        <input
+          type='button'
+          onClick={clearFilters}
+          className='text-sm px-3 uppercase'
+          value={'clear'}
+        />
+      </th>
     </tr>
   );
 };

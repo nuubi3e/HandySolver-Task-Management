@@ -61,20 +61,18 @@ export const TaskTable = () => {
                 value={task}
                 className='select-none'
                 key={task.id}
-                dragListener={task?.isDraggable || false}>
+                dragListener={task.isDraggable}>
                 <td>
-                  {task?.isDraggable && (
-                    <button
-                      type='button'
-                      className='text-xl'
-                      onClick={() => toogleIsDragging(task.id)}>
-                      {task.isDraggable ? (
-                        <PiDotsSixVerticalFill />
-                      ) : (
-                        <PiDotsSixVerticalBold />
-                      )}
-                    </button>
-                  )}
+                  <button
+                    type='button'
+                    className='text-xl'
+                    onClick={() => toogleIsDragging(task.id)}>
+                    {task.isDraggable ? (
+                      <PiDotsSixVerticalFill />
+                    ) : (
+                      <PiDotsSixVerticalBold />
+                    )}
+                  </button>
                 </td>
                 <td>{task.serialNo}</td>
                 <td>{task.title}</td>

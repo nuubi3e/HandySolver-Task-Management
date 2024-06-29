@@ -28,7 +28,7 @@
         @apply bg-white border-border;
 
         td {
-          @apply text-center py-5 px-3 border-border;
+          @apply text-center py-5 px-3 border-border font-medium;
 
           &:not(:last-child) {
             @apply border-r;

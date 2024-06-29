@@ -30,6 +30,7 @@ export type Filters =
   | 'dueDate'
   | 'estimatedHours'
   | 'createdOn'
-  | 'taskId';
+  | 'taskId'
+  | 'isAssigned';
 
 export type FilterObj = Record<Filters, string>;

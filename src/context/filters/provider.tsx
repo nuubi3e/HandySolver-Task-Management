@@ -15,9 +15,7 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
   const [taskPerPage, setTaskPerPage] = useState(5);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const [hasActiveFilters] = useState(false);
   const [filteredTasks, setFilteredTasks] = useState<TaskWithSerialNo[]>([]);
-  const [extraFilteredTasks, setExtraFilteredTasks] = useState<Task[]>(tasks);
   const [filters, setFilters] = useState<FilterObj>({
     title: '',
     status: '',
@@ -27,6 +25,7 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
     priority: '',
     createdOn: '',
     taskId: '',
+    isAssigned: '',
   });
 
   const addPagniation = useCallback(
@@ -64,43 +63,10 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
     });
   };
 
-  const applyFilters = (type: Filters, value: string) => {
+  const addFilters = (type: Filters, value: string) =>
     setFilters((lst) => {
       return { ...lst, [type]: value };
     });
-
-    const filteredTasks = tasks.filter((t) => {
-      if (!value) return t;
-
-      switch (type) {
-        case 'title':
-          return t.title.toLowerCase().includes(value.toLowerCase());
-
-        case 'taskId':
-          return t.id.toLowerCase().includes(value);
-
-        case 'status':
-          return t.status === value;
-
-        case 'assignedTo':
-          return t.assignedTo === value;
-
-        case 'dueDate':
-          return t.dueDate === value;
-
-        case 'estimatedHours':
-          return t.estimatedHours === value;
-
-        case 'priority':
-          return t.priority === value;
-
-        case 'createdOn':
-          return t.createdOn === value;
-      }
-    });
-
-    addPagniation(filteredTasks);
-  };
 
   const toogleIsDragging = (id?: string) => {
     setFilteredTasks((lst) => {
@@ -126,8 +92,62 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
   }, [tasks, taskPerPage, currentPage, addPagniation]);
 
   useEffect(() => {
-    setExtraFilteredTasks(tasks);
-  }, [tasks]);
+    let filteredTasks: Task[] = tasks;
+
+    for (const key in filters) {
+      const value = filters[key as Filters];
+
+      filteredTasks = filteredTasks.filter((t) => {
+        if (!value) return t;
+
+        switch (key) {
+          case 'title':
+            return t.title.toLowerCase().includes(value.toLowerCase());
+
+          case 'taskId':
+            return t.id.toLowerCase().includes(value);
+
+          case 'status':
+            return t.status === value;
+
+          case 'assignedTo':
+            return t.assignedTo === value;
+
+          case 'dueDate':
+            return t.dueDate === value;
+
+          case 'estimatedHours':
+            return t.estimatedHours === value;
+
+          case 'priority':
+            return t.priority === value;
+
+          case 'createdOn':
+            return t.createdOn === new Date(value).toDateString();
+
+          case 'isAssigned':
+            return t.isAssigned.toString() === value;
+        }
+      });
+    }
+
+    addPagniation(filteredTasks);
+  }, [filters, addPagniation, tasks]);
+
+  const clearFilters = () => {
+    setFilters({
+      title: '',
+      status: '',
+      assignedTo: '',
+      dueDate: '',
+      estimatedHours: '',
+      priority: '',
+      createdOn: '',
+      taskId: '',
+      isAssigned: '',
+    });
+    addPagniation(tasks);
+  };
 
   return (
     <FilterContext.Provider
@@ -137,12 +157,12 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
         currentPage,
         taskPerPage,
         totalPages,
-        hasActiveFilters,
         filteredTasks,
         setFilteredTasks,
         filters,
-        applyFilters,
+        addFilters,
         toogleIsDragging,
+        clearFilters,
       }}>
       {children}
     </FilterContext.Provider>
