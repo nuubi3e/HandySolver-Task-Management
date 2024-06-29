@@ -20,3 +20,5 @@ Now a React project will get started on [http://localhost:5000](http://localhost
 - React Icons
 - Json Server
 - React Hot Toast
+
+**NOTE:** in order to enable drag and drop functionality of row click on ![In Active Icon](https://github.com/nuubi3e/HandySolver-Task-Management/blob/main/public/md/inactive.png?raw=true) after click icon should look like ![In Active Icon](https://github.com/nuubi3e/HandySolver-Task-Management/blob/main/public/md/active.png?raw=true) after that you are good to go and start dragging the task rows
