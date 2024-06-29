@@ -73,7 +73,7 @@ export const TaskFilters = () => {
         <select
           id='isAssigned'
           className='capitalize'
-          value={filters.assignedTo}
+          value={filters.isAssigned}
           onChange={(e) => addFilters('isAssigned', e.target.value)}>
           <option value=''>All</option>
           <option value={'true'}>Yes</option>

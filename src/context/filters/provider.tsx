@@ -102,10 +102,12 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
 
         switch (key) {
           case 'title':
-            return t.title.toLowerCase().includes(value.toLowerCase());
+            return t.title
+              .toLowerCase()
+              .match(new RegExp(value.toLowerCase(), 'g'));
 
           case 'taskId':
-            return t.id.toLowerCase().includes(value);
+            return t.id.match(new RegExp(value, 'g'));
 
           case 'status':
             return t.status === value;
