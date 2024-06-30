@@ -5,11 +5,12 @@ type FilterContext = {
   taskPerPage: number;
   currentPage: number;
   totalPages: number;
+  allDragging: boolean;
+  filters: FilterObj;
   filteredTasks: TaskWithSerialNo[];
   changePage: (type: 'forward' | 'backward') => void;
   changeTaskPerPage: (taskPerPage: number) => void;
   setFilteredTasks: React.Dispatch<React.SetStateAction<TaskWithSerialNo[]>>;
-  filters: FilterObj;
   addFilters: (type: Filters, value: string) => void;
   setIsDragging: (isDragging: boolean, id?: string) => void;
   clearFilters: () => void;
@@ -17,12 +18,10 @@ type FilterContext = {
 
 export const FilterContext = createContext<FilterContext>({
   taskPerPage: 5,
+  allDragging: false,
   currentPage: 1,
-  changePage: () => {},
-  changeTaskPerPage: () => {},
   totalPages: 1,
   filteredTasks: [],
-  setFilteredTasks: () => {},
   filters: {
     title: '',
     status: '',
@@ -34,6 +33,9 @@ export const FilterContext = createContext<FilterContext>({
     taskId: '',
     isAssigned: '',
   },
+  changeTaskPerPage: () => {},
+  changePage: () => {},
+  setFilteredTasks: () => {},
   addFilters: () => {},
   setIsDragging: () => {},
   clearFilters: () => {},

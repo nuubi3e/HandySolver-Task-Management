@@ -15,6 +15,7 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
   const [taskPerPage, setTaskPerPage] = useState(5);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  const [allDragging, setAllDragging] = useState(false);
   const [filteredTasks, setFilteredTasks] = useState<TaskWithSerialNo[]>([]);
   const [filters, setFilters] = useState<FilterObj>({
     title: '',
@@ -72,10 +73,12 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
   };
 
   // Function to add filters values
-  const addFilters = (type: Filters, value: string) =>
+  const addFilters = (type: Filters, value: string) => {
+    setCurrentPage(1);
     setFilters((lst) => {
       return { ...lst, [type]: value };
     });
+  };
 
   // Function to change dragging ability of task cell
   const setIsDragging = (isDragging: boolean, id?: string) => {
@@ -94,6 +97,10 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
 
       return alltasks;
     });
+
+    if (id) return;
+
+    setAllDragging(isDragging);
   };
 
   // Updating total pages whenever tasks ot taskperpage changes
@@ -161,6 +168,7 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
       isAssigned: '',
     });
     addPagniation(tasks);
+    setAllDragging(false);
   };
 
   return (
@@ -177,6 +185,7 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
         addFilters,
         setIsDragging,
         clearFilters,
+        allDragging,
       }}>
       {children}
     </FilterContext.Provider>

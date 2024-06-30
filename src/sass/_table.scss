@@ -1,5 +1,5 @@
 .task-table {
-  @apply w-full text-black border-border border rounded-lg overflow-x-auto;
+  @apply w-full text-black border-border border rounded-lg overflow-x-auto overflow-y-hidden;
 
   table {
     @apply w-full;
