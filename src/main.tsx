@@ -6,14 +6,11 @@ import { TaskProvider } from './context/tasks/provider';
 import { FiltersProvider } from './context/filters/provider';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <TaskProvider>
-    <FiltersProvider>
-      <App />
-    </FiltersProvider>
-  </TaskProvider>
+  <React.StrictMode>
+    <TaskProvider>
+      <FiltersProvider>
+        <App />
+      </FiltersProvider>
+    </TaskProvider>
+  </React.StrictMode>
 );
-
-{
-  /* </React.StrictMode> */
-}
-// <React.StrictMode>
