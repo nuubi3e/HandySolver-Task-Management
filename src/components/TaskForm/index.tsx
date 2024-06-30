@@ -11,6 +11,7 @@ import {
 import { LuLoader } from 'react-icons/lu';
 import { TaskContext } from '../../context/tasks';
 import { members, priorities, statues } from '../../lib/utility';
+import { FilterContext } from '../../context/filters';
 
 type Props = {
   onClose: () => void;
@@ -34,6 +35,8 @@ const Modes = {
 export const TaskForm: FC<Props> = ({ onClose, mode, id, ...task }) => {
   const [submitting, setSubmitting] = useState(false);
   const { addNewTask, updateTask } = useContext(TaskContext);
+  const { changePage } = useContext(FilterContext);
+
   const {
     register,
     handleSubmit,
@@ -49,6 +52,7 @@ export const TaskForm: FC<Props> = ({ onClose, mode, id, ...task }) => {
       : updateTask({ ...userData, id: id || '' }));
 
     onClose();
+    changePage(1);
     setSubmitting(false);
   };
 

@@ -8,7 +8,7 @@ type FilterContext = {
   allDragging: boolean;
   filters: FilterObj;
   filteredTasks: TaskWithSerialNo[];
-  changePage: (type: 'forward' | 'backward') => void;
+  changePage: (type: 'forward' | 'backward' | number) => void;
   changeTaskPerPage: (taskPerPage: number) => void;
   setFilteredTasks: React.Dispatch<React.SetStateAction<TaskWithSerialNo[]>>;
   addFilters: (type: Filters, value: string) => void;

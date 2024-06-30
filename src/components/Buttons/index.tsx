@@ -5,6 +5,7 @@ import { FiEdit2, FiTrash } from 'react-icons/fi';
 import { Task } from '../../types';
 import { TaskContext } from '../../context/tasks';
 import { ConfirmModal } from '../ConfirmModal';
+import { FilterContext } from '../../context/filters';
 
 export const NewTaskButton = () => {
   const [showNewTaskForm, setShowNewTaskForm] = useState(false);
@@ -40,13 +41,29 @@ export const EditButton = (task: Task) => {
     <>
       <button
         type='button'
-        onClick={() => toggleModal('open')}
+        onClick={() => {
+          toggleModal('open');
+        }}
         className='text-xl transition-all hover:scale-110 focus:scale-100'>
         <FiEdit2 />
       </button>
 
       {showEditForm && (
-        <TaskForm onClose={() => toggleModal('close')} mode='edit' {...task} />
+        <TaskForm
+          onClose={() => {
+            toggleModal('close');
+          }}
+          mode='edit'
+          assignedTo={task.assignedTo}
+          dueDate={task.dueDate}
+          estimatedHours={task.estimatedHours}
+          id={task.id}
+          isAssigned={task.isAssigned}
+          priority={task.priority}
+          status={task.status}
+          title={task.title}
+          createdOn={task.createdOn}
+        />
       )}
     </>
   );
@@ -55,6 +72,7 @@ export const EditButton = (task: Task) => {
 export const DeleteButton = ({ id }: { id: string }) => {
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const { deleteTask } = useContext(TaskContext);
+  const { changePage } = useContext(FilterContext);
   const [deleting, setDeleting] = useState(false);
 
   const toggleModal = (type: 'open' | 'close') =>
@@ -72,12 +90,15 @@ export const DeleteButton = ({ id }: { id: string }) => {
       {showConfirmPopup && (
         <ConfirmModal
           submitting={deleting}
-          onClose={() => toggleModal('close')}
+          onClose={() => {
+            toggleModal('close');
+          }}
           onSuccess={async () => {
             setDeleting(true);
             await deleteTask(id);
             setDeleting(false);
             toggleModal('close');
+            changePage(1);
           }}
         />
       )}

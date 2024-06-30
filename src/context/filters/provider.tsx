@@ -33,6 +33,8 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
     (tasks: Task[]) => {
       setTotalPages(Math.ceil(tasks.length / taskPerPage));
 
+      console.log('ALL TASKS: ', tasks);
+
       const startIndex = (currentPage - 1) * taskPerPage;
       const endIndex = startIndex + taskPerPage;
 
@@ -57,9 +59,11 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
   };
 
   // function to change page
-  const changePage = (type: 'forward' | 'backward') => {
+  const changePage = (value: 'forward' | 'backward' | number) => {
+    if (typeof value === 'number') return setCurrentPage(value);
+
     setCurrentPage((page) => {
-      switch (type) {
+      switch (value) {
         case 'backward':
           return page - 1;
 
@@ -106,7 +110,8 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
   // Updating total pages whenever tasks ot taskperpage changes
   useEffect(() => {
     addPagniation(tasks);
-  }, [tasks, addPagniation]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tasks]);
 
   // Below effect will be applied whenever filters object changes
   useEffect(() => {

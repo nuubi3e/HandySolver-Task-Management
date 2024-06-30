@@ -17,23 +17,12 @@ export const TaskProvider = ({ children }: PropsWithChildren) => {
       },
       body: JSON.stringify({
         ...task,
-        createdOn: new Date().toDateString(),
       }),
     });
 
     if (!res.success) return false;
 
-    setTasks((lst) => {
-      const prevTask = [...lst];
-
-      const index = prevTask.findIndex((task) => task.id === task.id);
-
-      if (index !== -1) {
-        prevTask.splice(index, 1, res.data as Task);
-      }
-
-      return prevTask;
-    });
+    fetchAllTasks();
 
     toast.success(`${task.title} Task Updated Successfully`);
   };
