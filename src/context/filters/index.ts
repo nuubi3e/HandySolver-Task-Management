@@ -11,7 +11,7 @@ type FilterContext = {
   setFilteredTasks: React.Dispatch<React.SetStateAction<TaskWithSerialNo[]>>;
   filters: FilterObj;
   addFilters: (type: Filters, value: string) => void;
-  toogleIsDragging: (id?: string) => void;
+  setIsDragging: (isDragging: boolean, id?: string) => void;
   clearFilters: () => void;
 };
 
@@ -35,6 +35,6 @@ export const FilterContext = createContext<FilterContext>({
     isAssigned: '',
   },
   addFilters: () => {},
-  toogleIsDragging: () => {},
+  setIsDragging: () => {},
   clearFilters: () => {},
 });

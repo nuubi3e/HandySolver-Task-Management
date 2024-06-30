@@ -35,13 +35,17 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
       const startIndex = (currentPage - 1) * taskPerPage;
       const endIndex = startIndex + taskPerPage;
 
-      setFilteredTasks(
-        tasks.slice(startIndex, endIndex).map((task, i) => ({
+      const paginatedTasks = tasks
+        .slice(startIndex, endIndex)
+        .map((task, i) => ({
           ...task,
           serialNo: startIndex + i + 1,
           isDraggable: false,
-        }))
-      );
+        }));
+
+      console.log('PAGINATED TASKS: ', paginatedTasks);
+
+      setFilteredTasks(paginatedTasks);
     },
     [currentPage, taskPerPage]
   );
@@ -74,28 +78,28 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
     });
 
   // Function to change dragging ability of task cell
-  const toogleIsDragging = (id?: string) => {
+  const setIsDragging = (isDragging: boolean, id?: string) => {
     setFilteredTasks((lst) => {
-      const lastTask = [...lst];
+      const alltasks = [...lst];
 
-      const index = lastTask.findIndex((t) => t.id === id);
+      const index = alltasks.findIndex((t) => t.id === id);
 
       if (index === -1)
-        lastTask.forEach((task) => {
-          task['isDraggable'] = !task['isDraggable'];
+        alltasks.forEach((task) => {
+          task['isDraggable'] = isDragging;
         });
       else {
-        lastTask[index]['isDraggable'] = !lastTask[index]['isDraggable'];
+        alltasks[index]['isDraggable'] = isDragging;
       }
 
-      return lastTask;
+      return alltasks;
     });
   };
 
   // Updating total pages whenever tasks ot taskperpage changes
   useEffect(() => {
     addPagniation(tasks);
-  }, [tasks, taskPerPage, currentPage, addPagniation]);
+  }, [tasks, addPagniation]);
 
   // Below effect will be applied whenever filters object changes
   useEffect(() => {
@@ -171,7 +175,7 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
         setFilteredTasks,
         filters,
         addFilters,
-        toogleIsDragging,
+        setIsDragging,
         clearFilters,
       }}>
       {children}

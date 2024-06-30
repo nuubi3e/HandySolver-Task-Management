@@ -11,7 +11,7 @@ import { LuClipboard } from 'react-icons/lu';
 import toast from 'react-hot-toast';
 
 export const TaskTable = () => {
-  const { filteredTasks, setFilteredTasks, toogleIsDragging } =
+  const { filteredTasks, setFilteredTasks, setIsDragging } =
     useContext(FilterContext);
   const { loading } = useContext(TaskContext);
 
@@ -68,7 +68,7 @@ export const TaskTable = () => {
                   <button
                     type='button'
                     className='text-xl'
-                    onClick={() => toogleIsDragging(task.id)}>
+                    onClick={() => setIsDragging(!task.isDraggable, task.id)}>
                     {task.isDraggable ? (
                       <PiDotsSixVerticalFill />
                     ) : (

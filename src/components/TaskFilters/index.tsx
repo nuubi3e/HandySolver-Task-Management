@@ -1,12 +1,18 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { members, priorities, statues } from '../../lib/utility';
 import { FilterContext } from '../../context/filters';
 import { MdOutlineFilterAlt } from 'react-icons/md';
-import { PiDotsSixVerticalBold } from 'react-icons/pi';
+import { PiDotsSixVerticalBold, PiDotsSixVerticalFill } from 'react-icons/pi';
 
 export const TaskFilters = () => {
-  const { addFilters, filters, clearFilters, toogleIsDragging } =
+  const { addFilters, filters, clearFilters, setIsDragging } =
     useContext(FilterContext);
+  const [allDragging, setAllDragging] = useState(false);
+
+  useEffect(() => {
+    setIsDragging(allDragging);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allDragging]);
 
   return (
     <tr>
@@ -14,8 +20,10 @@ export const TaskFilters = () => {
         <button
           type='button'
           className='text-xl'
-          onClick={() => toogleIsDragging()}>
-          <PiDotsSixVerticalBold />
+          onClick={() => {
+            setAllDragging((lst) => !lst);
+          }}>
+          {allDragging ? <PiDotsSixVerticalFill /> : <PiDotsSixVerticalBold />}
         </button>
       </th>
       <th>
