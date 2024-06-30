@@ -74,7 +74,7 @@ export const FiltersProvider = ({ children }: PropsWithChildren) => {
 
   // Function to add filters values
   const addFilters = (type: Filters, value: string) => {
-    setCurrentPage(1);
+    setCurrentPage(1); // set current page to 1 to avoid wierd filtering bug
     setFilters((lst) => {
       return { ...lst, [type]: value };
     });
